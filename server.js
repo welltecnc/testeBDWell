@@ -1,24 +1,25 @@
-// JSON Server module
+// importando o modulo json-server
 const jsonServer = require("json-server");
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 
-// Make sure to use the default middleware
+// Certifique-se de usar o middleware(funções que podem ser usadas para tratar os inputs e outputs de rotas antes ou depois de elas serem processadas) padrão
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
-// Add this before server.use(router)
+// Adiciona o use anntes do use router
 server.use(
- // Add custom route here if needed
+ // Personalizando a rotas do vercel.json
  jsonServer.rewriter({
   "/*": "/$1",
  })
 );
+// adicionando o use router
 server.use(router);
-// Listen to port
+// executando na porta 3000
 server.listen(3000, () => {
  console.log("Servidor rodando");
 });
 
-// Export the Server API
+// exporta o modulo para api server.js
 module.exports = server;
